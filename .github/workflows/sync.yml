@@ -1,0 +1,35 @@
+name: Sync maptap leaderboard
+
+on:
+  schedule:
+    - cron: "0 18 * * *"   # 18:00 UTC = 12:00 PM Mountain (MDT, summer).
+                           # GitHub cron ignores daylight saving, so in winter (MST)
+                           # change 18 to 19 to keep it firing at noon.
+  workflow_dispatch: {}     # also lets you run it on demand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull scores from Slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          MAPTAP_CHANNEL_ID: C0B6XR5SKEZ
+        run: python sync.py
+
+      - name: Commit if the data changed
+        run: |
+          git config user.name "maptap-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data.json
+          git diff --staged --quiet || git commit -m "Update leaderboard $(date -u +%F)"
+          git push
