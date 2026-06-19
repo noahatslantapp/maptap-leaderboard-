@@ -12,7 +12,6 @@ jobs:
 sync:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
@@ -47,4 +46,3 @@ steps:
       git commit -m "Update leaderboard $(date -u +%F)"
 
       git push origin main
-```
