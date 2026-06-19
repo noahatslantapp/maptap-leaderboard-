@@ -1,50 +1,50 @@
+:::writing{variant="document" id="81264"}
 name: Sync maptap leaderboard
 
 on:
-schedule:
-- cron: "*/15 * * * *"
-workflow_dispatch: {}
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
-sync:
-runs-on: ubuntu-latest
+  sync:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
-    with:
-      fetch-depth: 0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  - name: Set up Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: "3.12"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-  - name: Pull scores from Slack
-    env:
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      MAPTAP_CHANNEL_ID: C0B6XR5SKEZ
-    run: python sync.py
+      - name: Pull scores from Slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          MAPTAP_CHANNEL_ID: C0B6XR5SKEZ
+        run: python sync.py
 
-  - name: Commit if the data changed
-    run: |
-      git config user.name "maptap-bot"
-      git config user.email "actions@users.noreply.github.com"
+      - name: Commit if the data changed
+        run: |
+          git config user.name "maptap-bot"
+          git config user.email "actions@users.noreply.github.com"
 
-      git add data.json
+          git add data.json
 
-      if git diff --staged --quiet; then
-        echo "No changes to commit"
-        exit 0
-      fi
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
 
-      git pull --rebase origin main
+          git pull --rebase origin main
 
-      git commit -m "Update leaderboard $(date -u +%F)"
+          git commit -m "Update leaderboard $(date -u +%F)"
 
-      git push origin main
-```
+          git push origin main
+:::
