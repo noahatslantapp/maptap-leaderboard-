@@ -31,6 +31,6 @@ jobs:
             echo "No changes to commit"
             exit 0
           fi
-          git pull --rebase origin main
           git commit -m "Update leaderboard $(date -u +%F)"
+          git pull --rebase origin main
           git push origin main
