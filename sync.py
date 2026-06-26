@@ -39,7 +39,7 @@ MEMBERS = {
     "U0B440YRQ3H": "Russell Epling",
     "U0ATZ5ZQN4D": "Jonathan Farnsworth",
     "U0AN4E26WSX": "Jake Hope",
-    "U0AC040ALQ7": "McKay Murphy",
+    "U0AC040ALQ7": "MURP",
     "U0B4M9V1JGH": "Nicole Priest",
     "U0A9HQN9B8D": "Seth Stones",
     "U09MLHRLFUZ": "McKay Court",
