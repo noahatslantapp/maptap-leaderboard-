@@ -44,6 +44,9 @@ MEMBERS = {
     "U0A9HQN9B8D": "Seth Stones",
     "U09MLHRLFUZ": "McKay Court",
     "U07MHP7UR0D": "Josh Menden",
+    "U0C3CDR1E9Y": "Jacquie Jones",
+    "U0CG7C7UUCR": "John Sandberg",
+    "U0BUAF37Z52": "Jared McKinney",
 }
 
 MONTHS = {m.lower(): i for i, m in enumerate(
